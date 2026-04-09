@@ -1,0 +1,80 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 230 15% 98%;
+    --foreground: 221 60% 10%;
+    --card: 0 0% 100%;
+    --card-foreground: 221 60% 10%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 221 60% 10%;
+    --primary: 218 67% 15%; /* Navy Blue from logo */
+    --primary-foreground: 210 40% 98%;
+    --secondary: 230 15% 90%;
+    --secondary-foreground: 221 60% 20%;
+    --muted: 230 10% 88%;
+    --muted-foreground: 221 20% 45%;
+    --accent: 42 89% 57%; /* Gold/Yellow from logo */
+    --accent-foreground: 218 67% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 221 20% 85%;
+    --input: 221 20% 85%;
+    --ring: 218 67% 15%;
+    --radius: 0.75rem;
+    --sidebar-background: 218 67% 15%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-primary: 42 89% 57%;
+    --sidebar-primary-foreground: 218 67% 15%;
+    --sidebar-accent: 218 67% 20%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 218 67% 25%;
+    --sidebar-ring: 42 89% 57%;
+    --chart-1: 218 67% 15%;
+    --chart-2: 42 89% 57%;
+    --chart-3: 200 40% 30%;
+    --chart-4: 180 50% 60%;
+    --chart-5: 220 30% 70%;
+  }
+
+  .dark {
+    --background: 221 60% 4%;
+    --foreground: 210 40% 98%;
+    --card: 221 60% 6%;
+    --card-foreground: 210 40% 98%;
+    --popover: 221 60% 6%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 42 89% 57%; /* Flip primary to Gold for dark mode visibility */
+    --primary-foreground: 221 60% 5%;
+    --secondary: 221 60% 12%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 221 30% 15%;
+    --muted-foreground: 221 20% 70%;
+    --accent: 218 67% 40%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 221 60% 15%;
+    --input: 221 60% 15%;
+    --ring: 42 89% 57%;
+    --sidebar-background: 221 60% 4%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-primary: 42 89% 57%;
+    --sidebar-primary-foreground: 221 60% 5%;
+    --sidebar-accent: 221 60% 10%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 221 60% 12%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border transition-colors duration-200;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}

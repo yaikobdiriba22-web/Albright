@@ -1,0 +1,186 @@
+
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "type": "object",
+      "description": "Represents a user account in the system.",
+      "properties": {
+        "id": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "role": { "type": "string", "enum": ["admin", "teacher", "student", "parent", "accountant"] },
+        "firstName": { "type": "string" },
+        "lastName": { "type": "string" }
+      },
+      "required": ["id", "email", "role", "firstName", "lastName"]
+    },
+    "StudentProfile": {
+      "title": "StudentProfile",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "parentId": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "gradeLevel": { "type": "string" },
+        "attendance": { "type": "number" },
+        "gpa": { "type": "number" },
+        "status": { "type": "string" }
+      },
+      "required": ["id", "userId", "name", "email", "gradeLevel"]
+    },
+    "Grade": {
+      "title": "Grade",
+      "type": "object",
+      "description": "Academic result for a student.",
+      "properties": {
+        "id": { "type": "string" },
+        "studentId": { "type": "string" },
+        "studentName": { "type": "string" },
+        "subject": { "type": "string" },
+        "type": { "type": "string", "enum": ["Test", "Assignment", "Mid Exam", "Final Exam"] },
+        "score": { "type": "number" },
+        "maxScore": { "type": "number" },
+        "teacherId": { "type": "string" },
+        "date": { "type": "string", "format": "date-time" }
+      },
+      "required": ["studentId", "subject", "type", "score"]
+    },
+    "Assignment": {
+      "title": "Assignment",
+      "type": "object",
+      "description": "Assignment task created by a teacher.",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "subject": { "type": "string" },
+        "description": { "type": "string" },
+        "dueDate": { "type": "string", "format": "date" },
+        "teacherId": { "type": "string" },
+        "fileUrl": { "type": "string" }
+      }
+    },
+    "Submission": {
+      "title": "Submission",
+      "type": "object",
+      "description": "Student submission for an assignment.",
+      "properties": {
+        "id": { "type": "string" },
+        "assignmentId": { "type": "string" },
+        "studentId": { "type": "string" },
+        "studentName": { "type": "string" },
+        "fileUrl": { "type": "string" },
+        "submittedAt": { "type": "string", "format": "date-time" }
+      }
+    },
+    "Material": {
+      "title": "Material",
+      "type": "object",
+      "description": "Worksheets and study documents.",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "subject": { "type": "string" },
+        "type": { "type": "string", "enum": ["Worksheet", "Question Bank", "Document"] },
+        "fileUrl": { "type": "string" },
+        "teacherId": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      }
+    },
+    "Invoice": {
+      "title": "Invoice",
+      "type": "object",
+      "description": "Financial record for student fees.",
+      "properties": {
+        "id": { "type": "string" },
+        "studentId": { "type": "string" },
+        "amount": { "type": "number" },
+        "dueDate": { "type": "string", "format": "date" },
+        "status": { "type": "string", "enum": ["Paid", "Unpaid", "Partial"] },
+        "description": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "studentId", "amount", "dueDate", "status"]
+    },
+    "Message": {
+      "title": "Message",
+      "type": "object",
+      "description": "Internal school communication.",
+      "properties": {
+        "id": { "type": "string" },
+        "senderId": { "type": "string" },
+        "senderName": { "type": "string" },
+        "senderRole": { "type": "string" },
+        "recipientId": { "type": "string" },
+        "isPublic": { "type": "boolean" },
+        "content": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["senderId", "content", "createdAt"]
+    }
+  },
+  "auth": {
+    "providers": ["password", "anonymous"]
+  },
+  "firestore": {
+    "structure": [
+      {
+        "path": "/users/{userId}",
+        "definition": {
+          "schema": { "$ref": "#/backend/entities/User" },
+          "description": "User profiles."
+        }
+      },
+      {
+        "path": "/studentProfiles/{studentProfileId}",
+        "definition": {
+          "schema": { "$ref": "#/backend/entities/StudentProfile" },
+          "description": "Student academic and billing status."
+        }
+      },
+      {
+        "path": "/grades/{gradeId}",
+        "definition": {
+          "schema": { "$ref": "#/backend/entities/Grade" },
+          "description": "Student academic results."
+        }
+      },
+      {
+        "path": "/assignments/{assignmentId}",
+        "definition": {
+          "schema": { "$ref": "#/backend/entities/Assignment" },
+          "description": "Teacher assignments."
+        }
+      },
+      {
+        "path": "/submissions/{submissionId}",
+        "definition": {
+          "schema": { "$ref": "#/backend/entities/Submission" },
+          "description": "Student assignment submissions."
+        }
+      },
+      {
+        "path": "/materials/{materialId}",
+        "definition": {
+          "schema": { "$ref": "#/backend/entities/Material" },
+          "description": "Worksheets and study materials."
+        }
+      },
+      {
+        "path": "/invoices/{invoiceId}",
+        "definition": {
+          "schema": { "$ref": "#/backend/entities/Invoice" },
+          "description": "Financial invoices."
+        }
+      },
+      {
+        "path": "/messages/{messageId}",
+        "definition": {
+          "schema": { "$ref": "#/backend/entities/Message" },
+          "description": "School community messages."
+        }
+      }
+    ]
+  }
+}
